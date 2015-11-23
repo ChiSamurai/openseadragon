@@ -843,6 +843,15 @@ $.Viewport.prototype = /** @lends OpenSeadragon.Viewport.prototype */{
     },
 
     /**
+     * Gets the Point around which the viewport is rotated
+     * @function
+     * @return {OpenSeadragon.Point} the Point around which the viewport is rotated
+     */
+    getRotationPoint: function () {
+        return new OpenSeadragon.Point(this.viewer.canvas.firstChild.width / 2, this.viewer.canvas.firstChild.height / 2);
+    },
+
+    /**
      * @function
      * @return {OpenSeadragon.Viewport} Chainable.
      * @fires OpenSeadragon.Viewer.event:resize
@@ -1190,6 +1199,7 @@ $.Viewport.prototype = /** @lends OpenSeadragon.Viewport.prototype */{
      * @returns {OpenSeadragon.Point}
      */
     viewerElementToViewportCoordinates: function( pixel ) {
+        pixel = pixel.rotate(-this.getRotation(), this.getRotationPoint());
         return this.pointFromPixel( pixel, true );
     },
 
