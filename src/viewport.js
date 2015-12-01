@@ -848,7 +848,7 @@ $.Viewport.prototype = /** @lends OpenSeadragon.Viewport.prototype */{
      * @return {OpenSeadragon.Point} the Point around which the viewport is rotated
      */
     getRotationPoint: function () {
-        return new OpenSeadragon.Point(this.viewer.canvas.firstChild.width / 2, this.viewer.canvas.firstChild.height / 2);
+        return this.getCenter();
     },
 
     /**
@@ -998,6 +998,9 @@ $.Viewport.prototype = /** @lends OpenSeadragon.Viewport.prototype */{
             this._containerInnerSize.x / bounds.width
         ).plus(
             bounds.getTopLeft()
+        ).rotate(
+            -this.getRotation(),
+            this.getRotationPoint()
         );
     },
 
